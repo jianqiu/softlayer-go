@@ -84,20 +84,6 @@ var _ = Describe("SoftLayer Virtual Guest Lifecycle", func() {
 			Expect(len(networkVlans)).To(BeNumerically(">", 0))
 		})
 
-		It("creates the virtual guest and waits for it to be active and checks that the host could create a 1MB disk", func() {
-			virtualGuest := testhelpers.CreateVirtualGuestAndMarkItTest([]datatypes.SoftLayer_Security_Ssh_Key{})
-			defer testhelpers.CleanUpVirtualGuest(virtualGuest.Id)
-
-			testhelpers.WaitForVirtualGuestToBeRunning(virtualGuest.Id)
-			testhelpers.WaitForVirtualGuestToHaveNoActiveTransactions(virtualGuest.Id)
-
-			virtualGuestService, err := testhelpers.CreateVirtualGuestService()
-			Expect(err).ToNot(HaveOccurred())
-
-			available, err := virtualGuestService.CheckHostDiskAvailability(virtualGuest.Id, 1024)
-			Expect(err).ToNot(HaveOccurred())
-			Expect(available).To(BeTrue())
-		})
 	})
 
 	Context("SoftLayer_VirtualGuest#CreateObject, SoftLayer_VirtualGuest#rebootSoft, wait for reboot to complete, and SoftLayer_VirtualGuest#DeleteObject", func() {
