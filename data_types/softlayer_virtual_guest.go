@@ -101,7 +101,7 @@ type NetworkComponents struct {
 
 type NetworkVlan struct {
 	//Required
-	Id float64 `json:"id,omitempty"`
+	Id string `json:"id,omitempty"`
 }
 
 type PrimaryNetworkComponent struct {
